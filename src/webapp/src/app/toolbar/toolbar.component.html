@@ -1,0 +1,21 @@
+<div class="tool-container">
+  <div class="inner-tool-container">
+    <h2>Pokój nr: {{ roomNo }}</h2>
+    <div>
+      <button (click)="changeStrokeSize(1)">1px</button>
+      <button (click)="changeStrokeSize(2)">2px</button>
+      <button (click)="changeStrokeSize(3)">3px</button>
+      <button (click)="changeStrokeSize(5)">5px</button>
+    </div>
+    <div>
+      <button style="background-color: blue" (click)="changeStrokeColor('blue')"></button>
+      <button style="background-color: red" (click)="changeStrokeColor('red')"></button>
+      <button style="background-color: green" (click)="changeStrokeColor('green')"></button>
+      <button style="background-color: yellow" (click)="changeStrokeColor('yellow')"></button>
+      <button style="background-color: black" (click)="changeStrokeColor('black')"></button>
+    </div>
+    <div>
+      <button (click)="onClearScreen()"><i class="icon-trash-empty"></i></button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+.tool-container {
+  height: 80px;
+  background-color: #333;
+
+  .inner-tool-container {
+    padding: 10px;
+    color: white;
+    display: flex;
+
+    div {
+      margin-left: 20px;
+    }
+  }
+}
+
+button {
+  height: 35px;
+  width: 35px;
+  border-radius: 35px;
+  margin-left: 5px;
+}

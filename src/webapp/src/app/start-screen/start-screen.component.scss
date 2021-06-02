@@ -1,0 +1,23 @@
+.main-container {
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  margin: 30vh;
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  justify-content: center;
+}
+
+.buttons {
+  display: flex;
+  button {
+    width: 100%;
+  }
+}
+
+p {
+  font-weight: bold;
+}
