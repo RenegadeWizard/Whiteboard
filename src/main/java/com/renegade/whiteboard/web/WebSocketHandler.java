@@ -16,6 +16,7 @@ import java.util.*;
 public class WebSocketHandler extends BinaryWebSocketHandler {
 
     Map<Integer, List<WebSocketSession>> rooms = new HashMap<>();
+    Map<Integer, List<BinaryMessage>> messages = new HashMap<>();
 
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) {
@@ -36,6 +37,10 @@ public class WebSocketHandler extends BinaryWebSocketHandler {
     public void handleBinaryMessage(WebSocketSession session, BinaryMessage message) {
         Integer room = retrieveRoomNumber(session.getUri().getQuery());
         log.info("Binary message: {}", message.getPayload());
+        messages.get(room).add(message);
+        if (message.getPayload().get(16) == 1) {
+            messages.get(room).clear();
+        }
         if (rooms.containsKey(room)) {
             for (WebSocketSession socketSession : rooms.get(room)) {
                 try {
@@ -56,6 +61,17 @@ public class WebSocketHandler extends BinaryWebSocketHandler {
         } else {
             rooms.put(room, new ArrayList<>(Collections.singletonList(session)));
         }
+        if (messages.containsKey(room)) {
+            for (BinaryMessage message: messages.get(room)) {
+                try {
+                    session.sendMessage(message);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            messages.put(room, new ArrayList<>());
+        }
     }
 
     @Override
@@ -66,6 +82,7 @@ public class WebSocketHandler extends BinaryWebSocketHandler {
             sessions.remove(session);
             if (sessions.isEmpty()) {
                 rooms.remove(room);
+                messages.remove(room);
             }
         }
     }
