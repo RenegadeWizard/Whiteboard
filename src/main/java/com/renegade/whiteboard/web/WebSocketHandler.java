@@ -20,17 +20,7 @@ public class WebSocketHandler extends BinaryWebSocketHandler {
 
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) {
-        Integer room = retrieveRoomNumber(session.getUri().getQuery());
         log.info("Text message: {}", message.getPayload());
-        if (rooms.containsKey(room)) {
-            for (WebSocketSession socketSession : rooms.get(room)) {
-                try {
-                    socketSession.sendMessage(message);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 
     @Override
